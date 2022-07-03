@@ -1,9 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/views/layout/Index'
+import Bookshelf from '@/views/Bookshelf/Index'
 const routes = [
   {
     path: '/',
-    component: Layout
+    component: Layout,
+    children: [
+      {
+        path: 'bookshelf',
+        component: Bookshelf
+      }
+    ]
   },
   {
     path: '/login',
