@@ -1,6 +1,9 @@
 <script setup>
+import { Toast } from 'vant'
 import { ref } from 'vue'
 import { getSearchResult } from './api/search'
+
+const emit = defineEmits(['addToBookshelf'])
 
 const searchBookList = ref([])
 const searchLoading = ref(false)
@@ -15,17 +18,22 @@ const searchBook = async (bookName, page) => {
   console.log(result, 'result')
 }
 
-const onLoad = () => {
+const onLoad = async () => {
     pageNum.value++
-    searchBook('遮天', pageNum.value)
+    await searchBook('遮天', pageNum.value)
 
     // 加载状态结束
     searchLoading.value = false
-
+    
     // 数据全部加载完成
-    if (searchBookList.value.length >= 40) {
+    if (searchBookList.value.length >= 80) {
       searchFinished.value = true
     }
+}
+
+const addToBookshelf = book => {
+  emit('addToBookshelf', book)
+  Toast('已添加到书架')
 }
 </script>
 
@@ -40,8 +48,18 @@ const onLoad = () => {
       v-for="item in searchBookList"
       :key="item.Id"
       :title="item.Name"
-    />
+    >
+      <template #right-icon>
+        <van-button icon="plus" type="primary" size="small" @click="addToBookshelf(item)" />
+      </template>
+    </van-cell>
   </van-list>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.van-list {
+  :deep(.van-cell__title) {
+    align-self: center;
+  }
+}
+</style>

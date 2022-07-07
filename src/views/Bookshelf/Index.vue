@@ -36,14 +36,15 @@ const showSearchComponent = () => searchComponentVisible.value = true
     </van-nav-bar>
 
     <van-grid :border="false" :column-num="3">
-      <van-grid-item v-for="(item, index) in bookList" :key="index">
-        <van-image show-loading src="" width="100" height="80" />
-        <span class="book-name">书名</span>
+      <van-grid-item v-for="item in bookList" :key="item.Id">
+        <van-image show-loading :src="item.Img" width="100" height="80" />
+        <span class="book-name">{{ item.Name }}</span>
       </van-grid-item>
     </van-grid>
 
     <SearchComponent 
       v-if="searchComponentVisible"
+      @addToBookshelf="book => bookList.push(book)"
     />
   </div>
 </template>
