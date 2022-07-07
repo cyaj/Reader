@@ -34,6 +34,7 @@ const showSearchComponent = () => searchComponentVisible.value = true
         </div>
       </template>
     </van-nav-bar>
+
     <van-grid :border="false" :column-num="3">
       <van-grid-item v-for="(item, index) in bookList" :key="index">
         <van-image show-loading src="" width="100" height="80" />

@@ -20,5 +20,15 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  // 代理
+  server: {
+    proxy: {
+      '/searchBook': {
+        target: 'https://souxs.leeyegy.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/searchBook/, '')
+      }
+    }
   }
 })
