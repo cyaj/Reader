@@ -35,7 +35,7 @@ const showSearchComponent = () => searchComponentVisible.value = true
       </template>
     </van-nav-bar>
 
-    <van-grid :border="false" :column-num="3">
+    <van-grid v-if="!searchComponentVisible" :border="false" :column-num="3">
       <van-grid-item v-for="item in bookList" :key="item.Id">
         <van-image show-loading :src="item.Img" width="100" height="80" />
         <span class="book-name">{{ item.Name }}</span>
@@ -61,6 +61,11 @@ const showSearchComponent = () => searchComponentVisible.value = true
   :deep(.van-nav-bar__title) {
     max-width: 100%;
     width: 100%;
+  }
+}
+.van-grid-item {
+  :deep(.van-grid-item__content--center) {
+    justify-content: start;
   }
 }
 </style>
